@@ -3,5 +3,13 @@
 public record DeadlineResponse(
     string Id,
     string Title,
-    string Description
+    string Description,
+    List<ToDoTaskResponse> Tasks
+);
+
+public record ToDoTaskResponse(
+    string Id,
+    string Title,
+    string Description,
+    bool Done
 );

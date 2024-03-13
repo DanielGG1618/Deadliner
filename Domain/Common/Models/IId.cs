@@ -1,6 +1,6 @@
 ﻿namespace Domain.Common.Models;
 
-public interface IId<TSelf, TSource> 
+public interface IId<TSelf, TSource> : IEquatable<TSelf>
     where TSelf : IId<TSelf, TSource>
     where TSource : notnull
 {
@@ -12,6 +12,10 @@ public interface IId<TSelf, TSource>
     public static abstract implicit operator string?(TSelf? id);
     public static abstract implicit operator TSelf?(string? str);
 
-    public int GetHashCode() => Value.GetHashCode();
-    public string? ToString() => Value.ToString();
+    public bool Equals(IId<TSelf, TSource>? other)
+    {
+        if (ReferenceEquals(null, other)) return false;
+        
+        return ReferenceEquals(this, other) || Value.Equals(other.Value);
+    }
 }

@@ -1,20 +1,26 @@
-WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
+{
+    var services = builder.Services;
+    
+    services
+        .AddPresentation()
+        .AddApplication()
+        .AddInfrastructure();
 
-builder.Services
-    .AddPresentation()
-    .AddApplication()
-    .AddInfrastructure();
+    services
+        .AddEndpointsApiExplorer()
+        .AddSwaggerGen();
+}
 
-builder.Services
-    .AddEndpointsApiExplorer()
-    .AddSwaggerGen();
+var app = builder.Build();
+{
+    app.UseHttpsRedirection();
+    app.MapControllers();
+    
+    app.MapIdentityApi<Infrastructure.Common.DbUser>();
 
-WebApplication app = builder.Build();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
-app.MapControllers();
-
-app.UseSwagger();
-app.UseSwaggerUI();
-
-app.Run();
+    app.Run();
+}

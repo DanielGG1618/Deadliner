@@ -14,8 +14,11 @@ public class DeadlineId : ValueObjectBase, IId<DeadlineId, Guid>
 
     public static implicit operator DeadlineId?(string? str) => str is null ? null : new(Guid.Parse(str));
     
-    protected override IEnumerable<object?> GetEqualityComponents()
-    {
-        yield return Value;
-    }
+    protected override IEnumerable<object?> GetEqualityComponents() => [Value];
+
+    public bool Equals(DeadlineId? other) => other is not null && other.Value == Value;
+
+    public override bool Equals(object? obj) => Equals(obj as DeadlineId);
+
+    public override int GetHashCode() => Value.GetHashCode();
 }
