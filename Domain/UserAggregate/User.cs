@@ -4,8 +4,6 @@ namespace Domain.UserAggregate;
 
 public sealed class User : AggregateRoot<UserId>
 {   
-    public UserId Id { get; set; } = default!;
-
     public string? UserName { get; set; }
 
     public string? NormalizedUserName { get; set; }

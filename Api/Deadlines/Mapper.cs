@@ -32,7 +32,7 @@ public static class Mapper
         (
             deadline.Id!,
             deadline.Title,
-            deadline.Description ?? "",
+            deadline.Description,
             deadline.Tasks.Select(task => 
                 new ToDoTaskResponse
                 (
